@@ -7,6 +7,8 @@ from .routes.add import add
 def create_app():
     app = Flask(__name__)
 
+    app.config['SECRET_KEY'] = 'Secret Key'
+
     app.register_blueprint(main)
     app.register_blueprint(add)
 

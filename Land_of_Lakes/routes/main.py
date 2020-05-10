@@ -1,7 +1,5 @@
 from flask import Blueprint, render_template
-
-# from ..forms import (ClientForm, AdvisorForm, AccountForm, UpdateClient,
-                     # DeleteForm, TablesForm)
+from ..forms import TablesForm
 
 main = Blueprint('main', __name__)
 
@@ -13,8 +11,12 @@ def index():
 
 @main.route('/search_database', methods=['GET', 'POST'])
 def search_database():
-    return "search database"
+    return render_template('search_database.html')
+
 
 @main.route('/view_tables', methods=['GET', 'POST'])
 def view_tables():
-    return "view_tables"
+
+    form = TablesForm()
+
+    return render_template('view_tables.html', form=form)
