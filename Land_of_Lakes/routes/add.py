@@ -11,6 +11,9 @@ def add_client():
 
     form = ClientForm()
 
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
+
     return render_template('add_client.html', form=form)
 
 
@@ -18,6 +21,8 @@ def add_client():
 def add_advisor():
 
     form = AdvisorForm()
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
 
     return render_template('add_advisor.html', form=form)
 
@@ -26,6 +31,8 @@ def add_advisor():
 def add_account():
 
     form = AccountForm()
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
 
     return render_template('add_account.html', form=form)
 
@@ -34,6 +41,8 @@ def add_account():
 def update_client():
 
     form = UpdateClient()
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
 
     return render_template('update_client.html', form=form)
 
@@ -42,5 +51,7 @@ def update_client():
 def delete_client():
 
     form = DeleteForm()
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
 
     return render_template('delete_client.html', form=form)

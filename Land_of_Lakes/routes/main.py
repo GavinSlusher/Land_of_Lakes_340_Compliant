@@ -19,4 +19,7 @@ def view_tables():
 
     form = TablesForm()
 
+    if form.validate_on_submit():
+        print(form.data)  # used for debugging
+
     return render_template('view_tables.html', form=form)
