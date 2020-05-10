@@ -14,3 +14,16 @@
 1. If not running the virtual environment - `source ./LoL/bin/activate`
 2. `export FLASK_APP=run.py`
 3. `flask run`
+
+## Running the app on Flip
+
+1. If not running the virtual environment - `source ./LoL/bin/activate`
+2. `export FLASK_APP=run.py`
+3. `python -m flask run -h 0.0.0.0 -p [port number] --reload`
+
+Now, your website should be accessible at http://flipN.engr.oregonstate.edu:YOUR_PORT_NUMBER
+
+## Running the app persistently on Flip!
+
+1. Follow steps 1 and 2 above if not already done
+2. `gunicorn run:app -b 0.0.0.0:YOUR_PORT_NUMBER -D` 
