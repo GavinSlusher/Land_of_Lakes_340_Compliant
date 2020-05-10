@@ -27,3 +27,9 @@ Now, your website should be accessible at http://flipN.engr.oregonstate.edu:YOUR
 
 1. Follow steps 1 and 2 above if not already done
 2. `gunicorn run:app -b 0.0.0.0:YOUR_PORT_NUMBER -D` 
+
+## How to kill an old gunicorn process
+
+1. `ps ufx | grep gunicorn`
+2. Find the PID (second column in the above output).Note that the grep process also shows up in the output. You want to kill the other process, which is most likely the second process in the above output.
+3. `kill [PID]`
