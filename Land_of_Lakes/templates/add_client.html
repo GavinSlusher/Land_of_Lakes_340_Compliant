@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Client Information</h1>
+  <form method="POST" action="{{ url_for('main.add_client') }}">
+    {{ form.hidden_tag() }}
+    {{ form.ssn.label }} {{form.ssn}} <br>
+    {{ form.first_name.label }} {{form.first_name}} <br>
+    {{ form.last_name.label }} {{form.last_name}} <br>
+    {{ form.city.label }} {{form.city}} <br>
+    {{ form.state.label }} {{form.state}} <br>
+    {{ form.house_number.label }} {{form.house_number}} <br>
+    {{ form.zip_code.label }} {{form.zip_code}} <br>
+    {{ form.email.label }} {{form.email}} <br>
+    {{ form.submit() }} 
+  </form>
+</div>
+{% endblock %}

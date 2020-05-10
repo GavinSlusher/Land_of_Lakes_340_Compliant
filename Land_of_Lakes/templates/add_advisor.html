@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Add Financial Advisor</h1>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.first_name.label }} {{form.first_name}} <br>
+    {{ form.last_name.label }} {{form.last_name}} <br>
+    {{ form.expertise.label }} {{form.expertise}} <br>
+    {{ form.submit() }} 
+  </form>
+</div>
+{% endblock %}
