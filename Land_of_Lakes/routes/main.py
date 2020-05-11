@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from ..forms import TablesForm
+from ..forms import TablesForm, ConnectAdvisorForm
 from ..db_connector.db_connector import connect_to_database, execute_query
 
 main = Blueprint('main', __name__)
@@ -20,6 +20,13 @@ def index():
     print(rows)
 
     return render_template('index.html', rows=rows)
+
+
+@main.route('/connect_advisor', methods=['GET', 'POST'])
+def connect_advisor():
+
+    form = ConnectAdvisorForm()
+    return render_template('connect_advisor.html', form=form)
 
 
 @main.route('/search_database', methods=['GET', 'POST'])

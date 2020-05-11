@@ -27,6 +27,12 @@ class AdvisorForm(FlaskForm):
     submit = SubmitField("Submit")
 
 
+class ConnectAdvisorForm(FlaskForm):
+    client_id = IntegerField("Client ID: ", validators=[DataRequired()])
+    advisor_id = IntegerField("Advisor ID: ", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+
+
 class UpdateClient(FlaskForm):
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
     ssn = IntegerField("Client's SSN: ", validators=[DataRequired()])
@@ -40,8 +46,21 @@ class UpdateClient(FlaskForm):
     submit = SubmitField("Submit")
 
 
-class AccountForm(FlaskForm):
+class HowManyAccountsForm(FlaskForm):
+    number_wanted = SelectField("Number of Account Owners: ",
+                                choices=[('1', 'One'),
+                                         ('2', 'Two')])
+    submit = SubmitField("Submit")
+
+
+class OneAccountForm(FlaskForm):
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+
+
+class TwoAccountForm(FlaskForm):
+    id_one = IntegerField("First Client ID: ", validators=[DataRequired()])
+    id_two = IntegerField("Second Client ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 

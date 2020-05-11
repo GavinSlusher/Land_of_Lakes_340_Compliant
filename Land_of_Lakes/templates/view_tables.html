@@ -16,15 +16,19 @@
         <a class="nav-item nav-link" href=" {{ url_for('main.index') }}">Home</a>
         <a class="nav-item nav-link" href=" {{ url_for('add.add_client') }}">Add Client</a>
         <a class="nav-item nav-link" href="{{ url_for('add.add_advisor') }} ">Add Financial Advisor</a>
-        <a class="nav-item nav-link" href="{{ url_for('main.search_database') }} ">Search Database</a>
         <a class="nav-item nav-link" href="{{ url_for('add.add_account') }}">Add Account</a>
         <a class="nav-item nav-link" href="{{ url_for('add.update_client') }}">Update Client</a>
         <a class="nav-item nav-link" href="{{ url_for('add.delete_client') }}">Delete Client</a>
+        <a class="nav-item nav-link" href="{{ url_for('main.connect_advisor') }}">Connect Advisor</a>
+        <a class="nav-item nav-link" href="{{ url_for('main.search_database') }} ">Search Database</a>
         <a class="nav-item nav-link" href="{{ url_for('main.view_tables') }}">View Tables</a>
       </div>
     </nav>
     <div class="jumbotron">
       <h1>View Tables</h1>
+
+        <p>Clieck on the table wanted below and hit submit to view.</p> 
+
       <form method="POST">
         {{ form.hidden_tag() }}
         {{ form.tables.label }} {{form.tables}} <br>

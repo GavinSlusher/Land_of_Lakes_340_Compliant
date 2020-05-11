@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+  <h1>Connect Advisor</h1>
+
+  <p>This form will connect an advisor with a client using their respective IDs
+  </p>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.client_id.label }} {{form.client_id}} <br>
+    {{ form.advisor_id.label }} {{form.advisor_id}} <br>
+    {{ form.submit() }}
+  </form>
+
+</div>
+
+{% endblock %}
+

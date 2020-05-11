@@ -2,6 +2,9 @@
 {% block content %}
 <div class="jumbotron">
   <h1>Update Client</h1>
+
+  <p>This form will update all fields for the client passed in with their ID</p>
+
   <form method="POST">
     {{ form.hidden_tag() }}
     {{ form.id.label }} {{form.id}} <br>

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
-from ..forms import (ClientForm, AdvisorForm, AccountForm, UpdateClient,
-                     DeleteForm)
+from ..forms import (ClientForm, AdvisorForm, OneAccountForm, TwoAccountForm,
+                     UpdateClient, DeleteForm, HowManyAccountsForm)
 
 add = Blueprint('add', __name__)
 
@@ -57,15 +57,36 @@ def add_advisor():
 @add.route('/add_account', methods=['GET', 'POST'])
 def add_account():
 
-    form = AccountForm()
-    if form.validate_on_submit():
-        id = form.id.data
+    how_many_form = HowManyAccountsForm()
+    one_form = OneAccountForm()
+    two_form = TwoAccountForm()
+
+    if how_many_form.validate_on_submit():
+        num_wanted = how_many_form.number_wanted.data
+        print("Client wants " + str(num_wanted) + " account owners")
+
+        return render_template('add_account.html',
+                               how_many_form=how_many_form,
+                               num_wanted=num_wanted, one_form=one_form,
+                               two_form=two_form)
+
+    if one_form.validate_on_submit():
+        id = one_form.id.data
 
         print('Info from Forms')
         print('---------------')
         print("client_id: " + str(id))
 
-    return render_template('add_account.html', form=form)
+    if two_form.validate_on_submit():
+        id_one = two_form.id_one.data
+        id_two = two_form.id_two.data
+
+        print('Info from Forms')
+        print('---------------')
+        print("id_one: " + str(id_one))
+        print("id_two: " + str(id_two))
+
+    return render_template('add_account.html', how_many_form=how_many_form)
 
 
 @add.route('/update_client', methods=['GET', 'POST'])

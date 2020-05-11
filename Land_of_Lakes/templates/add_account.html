@@ -1,11 +1,30 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="jumbotron">
   <h1>Add an account for a Client</h1>
+  <p>This form will add an account for the requested client(s).</p>
   <form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.id.label }} {{form.id}} <br>
-    {{ form.submit() }} 
+    {{ how_many_form.hidden_tag() }}
+    {{ how_many_form.number_wanted.label }} {{how_many_form.number_wanted}}
+    {{ how_many_form.submit() }} 
   </form>
+
+  {% if num_wanted == "1" %}
+    <form method="POST">
+      {{ one_form.hidden_tag() }}
+      {{ one_form.id.label }} {{one_form.id}}
+      {{ one_form.submit() }} 
+    </form>
+  {% elif num_wanted == "2" %}
+    <form method="POST">
+      {{ two_form.hidden_tag() }}
+      {{ two_form.id_one.label }} {{two_form.id_one}}
+      {{ two_form.id_two.label }} {{two_form.id_two}}
+      {{ two_form.submit() }} 
+    </form>
+  {% endif %}
+
 </div>
+
 {% endblock %}

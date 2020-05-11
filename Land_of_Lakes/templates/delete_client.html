@@ -2,9 +2,17 @@
 {% block content %}
 <div class="jumbotron">
   <h1>Delete Client</h1>
+
+  <div>
+    <p>This form will delete the client connected to the passed ID. If the client
+    has a Financial Advisor, the relationship will be de-linked. If the client is
+    the sole account owner of an account, the account will be deleted. And if the
+    client is a joint owner of an account, the account will remain.</p>
+  </div>
+
   <form method="POST">
     {{ form.hidden_tag() }}
-    {{ form.id.label }} {{form.id}} <br>
+    {{ form.id.label }} {{form.id}}
     {{ form.submit() }} 
   </form>
 </div>
