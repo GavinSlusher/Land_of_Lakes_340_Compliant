@@ -12,7 +12,7 @@ CREATE TABLE `clients` (
   `client_advisor_id` int NOT NULL,
   PRIMARY KEY (`client_id`),
   FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`)
-  FOREIGN KEY ('client_account_id') REFERENCES 'clients_accounts'('clients_accounts'),
+  FOREIGN KEY ('client_account_id') REFERENCES 'clients_accounts'('client_account_id'),
   FOREIGN KEY ('client_advisor_id') REFERENCES 'clients_advisors'("client_advisor_id")
 ); 
 
@@ -30,7 +30,7 @@ CREATE TABLE `clients_accounts` (
   `client_account_id` int NOT NULL AUTO_INCREMENT,
   `client_id` int NOT NULL,
   'account_id' int NOT NULL,
-  PRIMARY KEY (`client_account_id`)
+  PRIMARY KEY (`client_account_id`),
   FOREIGN KEY ('account_id') REFERENCES 'accounts'('account_id'),
   FOREIGN KEY ('client_id') REFERENCES 'clients'('client_id')
 ); 
@@ -40,7 +40,7 @@ CREATE TABLE `clients_advisors` (
   `client_advisor_id` int NOT NULL AUTO_INCREMENT,
   `client_id` int NOT NULL,
   'advisor_id' int NOT NULL,
-  PRIMARY KEY (`client_advisor_id`)
+  PRIMARY KEY (`client_advisor_id`),
   FOREIGN KEY (`advisor_id`) REFERENCES `clients`(`advisor_id`),
   FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
 ); 
@@ -65,7 +65,7 @@ CREATE TABLE `financial_advisors` (
   'last_name' varchar(255),
   'first_name' varchar(255),
   `client_advisor_id` int,
-  PRIMARY KEY (`address_id`),
+  PRIMARY KEY (`advisor_id`),
   FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 );
 
