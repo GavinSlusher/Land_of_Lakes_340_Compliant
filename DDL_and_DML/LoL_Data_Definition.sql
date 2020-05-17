@@ -72,5 +72,20 @@ CREATE TABLE `clients_advisors` (
 
 -- SET FOREIGN_KEY_CHECKS=0;
 
--- INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`) 
--- VALUES (1234, 'Thomas', 'Prange');
+DROP TABLE IF EXISTS `addresses`;
+CREATE TABLE `addresses` (
+  `address_id` int NOT NULL AUTO_INCREMENT,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(255) NOT NULL,
+  `house_number` int,
+  `zip_code` int(5),
+  -- `client_id` int NOT NULL,
+  PRIMARY KEY (`address_id`)
+  -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
+); 
+
+INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`) 
+VALUES ('Reno', 'NV', '123', '00000')
+
+INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`) 
+VALUES (1234, 'Thomas', 'Prange', 'tjprange@gmail.com', address_id);
