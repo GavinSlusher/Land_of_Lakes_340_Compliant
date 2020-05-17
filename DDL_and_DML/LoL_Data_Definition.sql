@@ -76,20 +76,13 @@ CREATE TABLE `clients_advisors` (
 INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`) 
 VALUES ('Reno', 'NV', '123', '00000');
 
-INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`) 
-VALUES (1234, 'Thomas', 'Prange', 'tjprange@gmail.com');
+INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`) 
+VALUES (1234, 'Thomas', 'Prange', 'tjprange@gmail.com', '1' );
 
 -- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
 
--- DROP TABLE IF EXISTS `accounts`;
--- CREATE TABLE `accounts` (
---   `account_id` int NOT NULL AUTO_INCREMENT,
---   `balance` float,
---   -- `client_id` int NOT NULL,
---   PRIMARY KEY (`account_id`)
-  -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
--- ); 
+INSERT INTO `accounts` (`balance`)
+VALUES (350);
 
--- INSERT INTO `accounts` (`balance`, )
-
--- INSERT INTO `clients_accounts` (`client_id`, `account_id`
+INSERT INTO `clients_accounts` (`client_id`, `account_id`)
+VALUES ('1', '1');
