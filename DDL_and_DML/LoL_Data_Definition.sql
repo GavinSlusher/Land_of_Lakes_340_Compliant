@@ -12,8 +12,8 @@ CREATE TABLE `clients` (
   `client_advisor_id` int NOT NULL,
   PRIMARY KEY (`client_id`),
   FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`),
-  FOREIGN KEY ('client_account_id') REFERENCES 'clients_accounts'('client_account_id'),
-  FOREIGN KEY ('client_advisor_id') REFERENCES 'clients_advisors'("client_advisor_id")
+  FOREIGN KEY (`client_account_id`) REFERENCES `clients_accounts`(`client_account_id`),
+  FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 ); 
 
 DROP TABLE IF EXISTS `accounts`;
@@ -29,17 +29,17 @@ DROP TABLE IF EXISTS `clients_accounts`;
 CREATE TABLE `clients_accounts` (
   `client_account_id` int NOT NULL AUTO_INCREMENT,
   `client_id` int NOT NULL,
-  'account_id' int NOT NULL,
+  `account_id` int NOT NULL,
   PRIMARY KEY (`client_account_id`),
-  FOREIGN KEY ('client_id') REFERENCES 'clients'('client_id'),
-  FOREIGN KEY ('account_id') REFERENCES 'accounts'('account_id')  
+  FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`),
+  FOREIGN KEY (`account_id`) REFERENCES `accounts`(`account_id`)  
 ); 
 
 DROP TABLE IF EXISTS `clients_advisors`;
 CREATE TABLE `clients_advisors` (
   `client_advisor_id` int NOT NULL AUTO_INCREMENT,
   `client_id` int NOT NULL,
-  'advisor_id' int NOT NULL,
+  `advisor_id` int NOT NULL,
   PRIMARY KEY (`client_advisor_id`),
   FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`),
   FOREIGN KEY (`advisor_id`) REFERENCES `clients`(`advisor_id`)  
@@ -59,11 +59,11 @@ CREATE TABLE `addresses` (
 
 DROP TABLE IF EXISTS `financial_advisors`;
 CREATE TABLE `financial_advisors` (
-  'advisor_id' int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  'area_of_expertise' ENUM('Taxation', 'Estate Planning', 'Portfolio Management'),
-  'client_advisor_id'int NOT NULL,
-  'last_name' varchar(255),
-  'first_name' varchar(255),
+  `advisor_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `area_of_expertise` ENUM(`Taxation`, `Estate Planning`, `Portfolio Management`),
+  `client_advisor_id` int NOT NULL,
+  `last_name` varchar(255),
+  `first_name` varchar(255),
   `client_advisor_id` int,
   PRIMARY KEY (`advisor_id`),
   FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
