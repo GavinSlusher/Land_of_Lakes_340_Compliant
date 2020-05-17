@@ -8,7 +8,7 @@ CREATE TABLE `addresses` (
   `house_number` int,
   `zip_code` int(5),
   -- `client_id` int NOT NULL,
-  PRIMARY KEY (`address_id`),
+  PRIMARY KEY (`address_id`)
   -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
 ); 
 
@@ -23,7 +23,7 @@ CREATE TABLE `clients` (
   -- `client_account_id` int NOT NULL,
   -- `client_advisor_id` int NOT NULL,
   PRIMARY KEY (`client_id`),
-  FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`),
+  FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`)
   -- FOREIGN KEY (`client_account_id`) REFERENCES `clients_accounts`(`client_account_id`),
   -- FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 ); 
@@ -33,7 +33,7 @@ CREATE TABLE `accounts` (
   `account_id` int NOT NULL AUTO_INCREMENT,
   `balance` float,
   -- `client_id` int NOT NULL,
-  PRIMARY KEY (`account_id`),
+  PRIMARY KEY (`account_id`)
   -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
 ); 
 
@@ -54,7 +54,7 @@ CREATE TABLE `financial_advisors` (
   -- `client_advisor_id` int NOT NULL,
   `last_name` varchar(255),
   `first_name` varchar(255),
-  PRIMARY KEY (`advisor_id`),
+  PRIMARY KEY (`advisor_id`)
   -- FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 );
 
