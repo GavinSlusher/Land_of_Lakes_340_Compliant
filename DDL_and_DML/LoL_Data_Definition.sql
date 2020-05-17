@@ -85,7 +85,7 @@ CREATE TABLE `addresses` (
 ); 
 
 INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`) 
-VALUES ('Reno', 'NV', '123', '00000')
+VALUES ('Reno', 'NV', '123', '00000');
 
 INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`) 
 VALUES (1234, 'Thomas', 'Prange', 'tjprange@gmail.com', address_id);
