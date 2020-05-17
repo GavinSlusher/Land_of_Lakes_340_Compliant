@@ -86,3 +86,9 @@ VALUES (350);
 
 INSERT INTO `clients_accounts` (`client_id`, `account_id`)
 VALUES ('1', '1');
+
+INSERT INTO `financial_advisors` (`area_of_expertise`, `last_name`, `first_name`)
+VALUES ('Taxation', 'Wayne', 'Campbell');
+
+INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
+VALUES ('1', '1');
