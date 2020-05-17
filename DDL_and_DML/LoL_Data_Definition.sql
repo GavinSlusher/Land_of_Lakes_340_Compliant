@@ -42,7 +42,7 @@ CREATE TABLE `clients_advisors` (
   `advisor_id` int NOT NULL,
   PRIMARY KEY (`client_advisor_id`),
   FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`),
-  FOREIGN KEY (`advisor_id`) REFERENCES `clients`(`advisor_id`)  
+  FOREIGN KEY (`advisor_id`) REFERENCES `financial_advisors`(`advisor_id`)  
 ); 
 
 DROP TABLE IF EXISTS `addresses`;
@@ -60,7 +60,7 @@ CREATE TABLE `addresses` (
 DROP TABLE IF EXISTS `financial_advisors`;
 CREATE TABLE `financial_advisors` (
   `advisor_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `area_of_expertise` ENUM(`Taxation`, `Estate Planning`, `Portfolio Management`),
+  `area_of_expertise` ENUM('Taxation', 'Estate Planning', 'Portfolio Management'),
   `client_advisor_id` int NOT NULL,
   `last_name` varchar(255),
   `first_name` varchar(255),
