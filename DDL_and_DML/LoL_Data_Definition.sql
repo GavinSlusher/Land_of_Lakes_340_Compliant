@@ -64,7 +64,6 @@ CREATE TABLE `financial_advisors` (
   `client_advisor_id` int NOT NULL,
   `last_name` varchar(255),
   `first_name` varchar(255),
-  `client_advisor_id` int,
   PRIMARY KEY (`advisor_id`),
   FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 );
