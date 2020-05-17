@@ -59,7 +59,7 @@ CREATE TABLE `addresses` (
 
 DROP TABLE IF EXISTS `financial_advisors`;
 CREATE TABLE `financial_advisors` (
-  `advisor_id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `advisor_id` int NOT NULL AUTO_INCREMENT,
   `area_of_expertise` ENUM('Taxation', 'Estate Planning', 'Portfolio Management'),
   `client_advisor_id` int NOT NULL,
   `last_name` varchar(255),
