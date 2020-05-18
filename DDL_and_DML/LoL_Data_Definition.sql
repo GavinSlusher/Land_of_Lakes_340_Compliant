@@ -53,8 +53,8 @@ CREATE TABLE `financial_advisors` (
   `advisor_id` int NOT NULL AUTO_INCREMENT,
   `area_of_expertise` ENUM('Taxation', 'Estate Planning', 'Portfolio Management'),
   -- `client_advisor_id` int NOT NULL,
-  `last_name` varchar(255),
   `first_name` varchar(255),
+  `last_name` varchar(255),
   PRIMARY KEY (`advisor_id`)
   -- FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
 );
@@ -86,7 +86,7 @@ VALUES (350);
 INSERT INTO `clients_accounts` (`client_id`, `account_id`)
 VALUES ('1', '1');
 
-INSERT INTO `financial_advisors` (`area_of_expertise`, `last_name`, `first_name`)
+INSERT INTO `financial_advisors` (`area_of_expertise`, `first_name`, `last_name`)
 VALUES ('Taxation', 'Wayne', 'Campbell');
 
 INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
@@ -104,12 +104,12 @@ VALUES (4567, 'Gavin', 'Slusher', 'gavins@gmail.com', '2' );
 -- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
 
 INSERT INTO `accounts` (`balance`)
-VALUES (350.00);
+VALUES (350.01);
 
 INSERT INTO `clients_accounts` (`client_id`, `account_id`)
 VALUES ('2', '2');
 
-INSERT INTO `financial_advisors` (`area_of_expertise`, `last_name`, `first_name`)
+INSERT INTO `financial_advisors` (`area_of_expertise`, `first_name`, `last_name`)
 VALUES ('Portfolio Management', 'Peter', 'Lynch');
 
 INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
