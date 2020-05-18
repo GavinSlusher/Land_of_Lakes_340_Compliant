@@ -1,4 +1,5 @@
--- SET FOREIGN_KEY_CHECKS=0;
+
+-- Creating the Tables
 
 DROP TABLE IF EXISTS `addresses`;
 CREATE TABLE `addresses` (
@@ -10,7 +11,7 @@ CREATE TABLE `addresses` (
   -- `client_id` int NOT NULL,
   PRIMARY KEY (`address_id`)
   -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
-); 
+);
 
 DROP TABLE IF EXISTS `clients`;
 CREATE TABLE `clients` (
@@ -26,7 +27,7 @@ CREATE TABLE `clients` (
   FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`)
   -- FOREIGN KEY (`client_account_id`) REFERENCES `clients_accounts`(`client_account_id`),
   -- FOREIGN KEY (`client_advisor_id`) REFERENCES `clients_advisors`(`client_advisor_id`)
-); 
+);
 
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
@@ -35,7 +36,7 @@ CREATE TABLE `accounts` (
   -- `client_id` int NOT NULL,
   PRIMARY KEY (`account_id`)
   -- FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`)
-); 
+);
 
 DROP TABLE IF EXISTS `clients_accounts`;
 CREATE TABLE `clients_accounts` (
@@ -44,8 +45,8 @@ CREATE TABLE `clients_accounts` (
   `account_id` int NOT NULL,
   PRIMARY KEY (`client_account_id`),
   FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`),
-  FOREIGN KEY (`account_id`) REFERENCES `accounts`(`account_id`)  
-); 
+  FOREIGN KEY (`account_id`) REFERENCES `accounts`(`account_id`)
+);
 
 DROP TABLE IF EXISTS `financial_advisors`;
 CREATE TABLE `financial_advisors` (
@@ -65,18 +66,16 @@ CREATE TABLE `clients_advisors` (
   `advisor_id` int NOT NULL,
   PRIMARY KEY (`client_advisor_id`),
   FOREIGN KEY (`client_id`) REFERENCES `clients`(`client_id`),
-  FOREIGN KEY (`advisor_id`) REFERENCES `financial_advisors`(`advisor_id`)  
-); 
+  FOREIGN KEY (`advisor_id`) REFERENCES `financial_advisors`(`advisor_id`)
+);
 
+-- Inserting Data
 
-
--- SET FOREIGN_KEY_CHECKS=0;
-
-
-INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`) 
+-- Default Client 1
+INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`)
 VALUES ('Reno', 'NV', '123', '00000');
 
-INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`) 
+INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`)
 VALUES (1234, 'Thomas', 'Prange', 'tjprange@gmail.com', '1' );
 
 -- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
@@ -92,3 +91,26 @@ VALUES ('Taxation', 'Wayne', 'Campbell');
 
 INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
 VALUES ('1', '1');
+
+-- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
+
+-- Default Client 2
+INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`)
+VALUES ('Cleveland', 'OH', '456', '11111');
+
+INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`)
+VALUES (4567, 'Gavin', 'Slusher', 'gavins@gmail.com', '2' );
+
+-- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
+
+INSERT INTO `accounts` (`balance`)
+VALUES (350.00);
+
+INSERT INTO `clients_accounts` (`client_id`, `account_id`)
+VALUES ('2', '2');
+
+INSERT INTO `financial_advisors` (`area_of_expertise`, `last_name`, `first_name`)
+VALUES ('Portfolio Management', 'Peter', 'Lynch');
+
+INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
+VALUES ('2', '2');
