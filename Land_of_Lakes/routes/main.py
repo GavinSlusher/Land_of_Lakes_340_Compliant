@@ -3,23 +3,13 @@ from ..forms import TablesForm, ConnectAdvisorForm
 from ..db_connector.db_connector import connect_to_database, execute_query
 
 main = Blueprint('main', __name__)
+db_connection = connect_to_database()
 
 
 @main.route('/')
 def index():
 
-    # Testing db_connection
-
-    db_connection = connect_to_database()
-    query = ("SELECT id, fname, lname, homeworld, age FROM bsg_people "
-             "ORDER BY id;")
-
-    print(query)
-
-    rows = execute_query(db_connection, query).fetchall()
-    print(rows)
-
-    return render_template('index.html', rows=rows)
+    return render_template('index.html')
 
 
 @main.route('/connect_advisor', methods=['GET', 'POST'])
@@ -40,6 +30,74 @@ def view_tables():
     form = TablesForm()
 
     if form.validate_on_submit():
-        print(form.data)  # used for debugging
+
+        if form.tables.data == 'clients':
+            query = ("SELECT\
+                        `client_id` as 'Client ID',\
+                        `ssn` as 'Social Security Number',\
+                    CONCAT(`first_name`, ' ', `last_name`) as 'Client Name',\
+                        `email` as 'Email'\
+                     FROM\
+                        `clients`;")
+
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_clients.html', form=form, rows=rows)
+
+        elif form.tables.data == 'accounts':
+            query = ("SELECT\
+                        `account_id` as 'Account Number',\
+                        `balance` as 'Account Balance'\
+                     FROM\
+                        `accounts`;")
+
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_accounts.html', form=form, rows=rows)
+
+        elif form.tables.data == 'clients_advisors':
+            query = ("SELECT\
+                        `client_advisor_id` as 'Client Advisor ID',\
+                        `client_id` as 'Client ID',\
+                        `advisor_id` as 'Advisor ID'\
+                     FROM\
+                        `clients_advisors`;")
+
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_clients_advisors.html',
+                                   form=form,
+                                   rows=rows)
+
+        elif form.tables.data == 'clients_accounts':
+            query = ("SELECT\
+                            `client_account_id` as 'Client Account ID',\
+                            `client_id` as 'Client ID',\
+                            `account_id` as 'Account ID'\
+                     FROM\
+                            `clients_accounts`;")
+
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_clients_accounts.html',
+                                   form=form,
+                                   rows=rows)
+
+        elif form.tables.data == 'addresses':
+            query = ("SELECT\
+                            `address_id` as 'Address ID',\
+                            `city` as 'City',\
+                            `state` as 'State',\
+                            `house_number` as 'House Number',\
+                            `zip_code` as 'Zip Code'\
+                    FROM\
+                            `addresses`;")
+
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_addresses.html', form=form, rows=rows)
+
+        elif form.tables.data == 'financial_advisors':
+            print("They want financial advisors")
 
     return render_template('view_tables.html', form=form)

@@ -1,0 +1,26 @@
+{% extends "view_tables.html" %}
+{% block content %}
+
+<table class='table'>
+    <thead>
+        <th>Account Number</th>
+        <th>Account Balance</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </thead>
+    <tbody>
+
+      {% for r in rows %}
+
+      <tr>
+        <td> {{ r[0] }}</td>
+        <td> {{ r[1] }}</td>
+        <td> <input type='button' name='Update' value='Update' onclick="window.location = ''"> </td>
+        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = ''"> </td>
+      </tr>
+
+      {% endfor %}
+
+    </tbody>
+
+{% endblock %}
