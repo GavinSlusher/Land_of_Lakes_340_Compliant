@@ -3,7 +3,6 @@ from ..forms import TablesForm, ConnectAdvisorForm
 from ..db_connector.db_connector import connect_to_database, execute_query
 
 main = Blueprint('main', __name__)
-db_connection = connect_to_database()
 
 
 @main.route('/')
@@ -26,6 +25,7 @@ def search_database():
 
 @main.route('/view_tables', methods=['GET', 'POST'])
 def view_tables():
+    db_connection = connect_to_database()
 
     form = TablesForm()
 
