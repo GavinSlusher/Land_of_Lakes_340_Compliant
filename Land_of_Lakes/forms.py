@@ -21,9 +21,9 @@ class AdvisorForm(FlaskForm):
     first_name = StringField("First Name: ")
     last_name = StringField("Last Name: ")
     expertise = SelectField("Area of Expertise: ",
-                            choices=[('tax', 'Taxation'),
-                                     ('estate', 'Estate Planning'),
-                                     ('portfolio', 'Portfolio Management')])
+                            choices=[('Taxation', 'Taxation'),
+                                     ('Estate Planning', 'Estate Planning'),
+                                     ('Portfolio Management', 'Portfolio Management')])
     submit = SubmitField("Submit")
 
 

@@ -4,10 +4,12 @@
 <table class='table'>
     <thead>
         <th>Client Advisor ID</th>
+        <th>Client Name</th>
         <th>Client ID</th>
-        <th>Advisor ID</th>
-        <th>Update</th>
-        <th>Delete</th>
+        <th>Advisor Name</th>
+        <th>Advisor ID</th>       
+        <!-- <th>Update</th>
+        <th>Delete</th> -->
     </thead>
     <tbody>
 
@@ -15,10 +17,13 @@
 
       <tr>
         <td> {{ r[0] }}</td>
+        <td> CLIENT NAME HERE </td>
         <td> {{ r[1] }}</td>
-        <td> {{ r[2] }}</td>
-        <td> <input type='button' name='Update' value='Update' onclick="window.location = ''"> </td>
-        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = ''"> </td>
+        <td> ADVISOR NAME HERE </td>
+        <td> {{ r[2] }}</td>       
+        
+        <!-- <td> <input type='button' name='Update' value='Update' onclick="window.location = ''"> </td>
+        <td> <input type='button' name='Delete' value='Delete' onclick="window.location = ''"> </td> -->
       </tr>
 
       {% endfor %}

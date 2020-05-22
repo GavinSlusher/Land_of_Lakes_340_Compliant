@@ -98,6 +98,18 @@ def view_tables():
             return render_template('view_addresses.html', form=form, rows=rows)
 
         elif form.tables.data == 'financial_advisors':
-            print("They want financial advisors")
+            #print("VEIW FINANCIAL ADVISORS")
+            query = ("SELECT\
+                        `advisor_id` as 'Advisor ID',\
+                        `area_of_expertise` as 'Area of Expertise',\
+                        `first_name` as 'First Name',\
+                        `last_name` as 'Last Name'\
+                    FROM\
+                        `financial_advisors`;")
+                        
+            rows = execute_query(db_connection, query).fetchall()
+
+            return render_template('view_financial_advisors.html', form=form, rows=rows)
+            #print("They want financial advisors")
 
     return render_template('view_tables.html', form=form)
