@@ -23,7 +23,8 @@ class AdvisorForm(FlaskForm):
     expertise = SelectField("Area of Expertise: ",
                             choices=[('Taxation', 'Taxation'),
                                      ('Estate Planning', 'Estate Planning'),
-                                     ('Portfolio Management', 'Portfolio Management')])
+                                     ('Portfolio Management',
+                                      'Portfolio Management')])
     submit = SubmitField("Submit")
 
 
@@ -66,6 +67,11 @@ class TwoAccountForm(FlaskForm):
 
 class DeleteForm(FlaskForm):
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
+    submit = SubmitField("Submit")
+
+
+class SearchForm(FlaskForm):
+    searched_parameter = StringField('Last Name:', validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 

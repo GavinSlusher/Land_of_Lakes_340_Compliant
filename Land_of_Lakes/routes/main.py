@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from ..forms import TablesForm, ConnectAdvisorForm
+from ..forms import TablesForm, ConnectAdvisorForm, SearchForm
 from ..db_connector.db_connector import connect_to_database, execute_query
 
 main = Blueprint('main', __name__)
@@ -20,7 +20,20 @@ def connect_advisor():
 
 @main.route('/search_database', methods=['GET', 'POST'])
 def search_database():
-    return render_template('search_database.html')
+    db_connection = connect_to_database()
+    form = SearchForm()
+
+    if form.validate_on_submit():
+        search_term = form.searched_parameter.data
+        print("searching for: " + search_term)
+
+        query = (f"SELECT * FROM `clients` WHERE last_name LIKE '{search_term}%';")
+
+        rows = execute_query(db_connection, query, None).fetchall()
+
+        return render_template('search_database.html', form=form, rows=rows)
+
+    return render_template('search_database.html', form=form)
 
 
 @main.route('/view_tables', methods=['GET', 'POST'])
@@ -106,7 +119,7 @@ def view_tables():
                         `last_name` as 'Last Name'\
                     FROM\
                         `financial_advisors`;")
-                        
+
             rows = execute_query(db_connection, query).fetchall()
 
             return render_template('view_financial_advisors.html', form=form, rows=rows)

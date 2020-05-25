@@ -8,7 +8,7 @@ add = Blueprint('add', __name__)
 
 @add.route('/add_client', methods=['GET', 'POST'])
 def add_client():
-    
+
     db_connection = connect_to_database()
 
     form = ClientForm()
@@ -34,36 +34,37 @@ def add_client():
         print("house_number: " + str(house_number))
         print("zip_code: " + str(zip_code))
         print("email: " + str(email))
-        
-        # This will insert the form data into the addresses table
-        address_query = (f"INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`)\
-                           VALUES ('{city}', '{state}', '{house_number}', '{zip_code}');")
 
-        #print(address_query)
+        # This will insert the form data into the addresses table
+        address_query = (f"INSERT INTO `addresses` (`city`, `state`,\
+                                `house_number`, `zip_code`)\
+                           VALUES ('{city}', '{state}', '{house_number}',\
+                                '{zip_code}');")
 
         execute_query(db_connection, address_query)
 
-        # This will grab the most recent address_id added to the addresses table
-        get_address = "SELECT address_id FROM addresses ORDER BY address_id DESC LIMIT 1;"        
-        
+        # This will grab the most recent address_id added to the addresses
+        get_address = "SELECT address_id FROM addresses ORDER BY address_id\
+                       DESC LIMIT 1;"
+
         address_id = execute_query(db_connection, get_address).fetchall()
         address_id = address_id[0][0]
         print(address_id)
 
         # Insert into the client table
-        client_query = (f"INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`)\
-                             VALUES ('{ssn}', '{first_name}', '{last_name}', '{email}', '{address_id}');")       
+        client_query = (f"INSERT INTO `clients`(`ssn`, `first_name`,\
+                            `last_name`, `email`, `address_id`)\
+                        VALUES ('{ssn}', '{first_name}', '{last_name}',\
+                            '{email}', '{address_id}');")
 
-        execute_query(db_connection, client_query) 
-
-       # print(client_query)
+        execute_query(db_connection, client_query)
 
     return render_template('add_client.html', form=form)
 
 
 @add.route('/add_advisor', methods=['GET', 'POST'])
 def add_advisor():
-    
+
     db_connection = connect_to_database()
 
     form = AdvisorForm()
@@ -78,8 +79,10 @@ def add_advisor():
         print("last_name: " + str(last_name))
         print("area_of_expertise: " + str(area_of_expertise))
 
-        advisor_query = (f"INSERT INTO `financial_advisors` (`first_name`, `last_name`, `area_of_expertise`)\
-                          VALUES ('{first_name}', '{last_name}', '{area_of_expertise}');")
+        advisor_query = (f"INSERT INTO `financial_advisors` (`first_name`,\
+                            `last_name`, `area_of_expertise`)\
+                          VALUES ('{first_name}', '{last_name}',\
+                            '{area_of_expertise}');")
 
         print(advisor_query)
 
@@ -121,21 +124,20 @@ def add_account():
                           VALUES ('{balance}');")
 
         execute_query(db_connection, accounts_query)
-        
-        get_account = "SELECT account_id FROM accounts ORDER BY account_id DESC LIMIT 1;"        
-        
+
+        get_account = "SELECT account_id FROM accounts ORDER BY account_id\
+                       DESC LIMIT 1;"
+
         account_id = execute_query(db_connection, get_account).fetchall()
         account_id = account_id[0][0]
         print(account_id)
 
-        #connect the account to the client
+        # connect the account to the client
 
         connection_query = (f"INSERT INTO `clients_accounts` (`client_id`, `account_id`)\
                             VALUES ('{client_id}', '{account_id}');")
-        
+
         execute_query(db_connection, connection_query)
-
-
 
     if two_form.validate_on_submit():
         id_one = two_form.id_one.data
@@ -153,32 +155,32 @@ def add_account():
                           VALUES ('{balance}');")
 
         execute_query(db_connection, accounts_query)
-        
-        get_account = "SELECT account_id FROM accounts ORDER BY account_id DESC LIMIT 1;"        
-        
+
+        get_account = "SELECT account_id FROM accounts ORDER BY account_id\
+                       DESC LIMIT 1;"
+
         account_id = execute_query(db_connection, get_account).fetchall()
         account_id = account_id[0][0]
         print(account_id)
 
-        #connect the account to the client
+        # connect the account to the client
 
         connection_query = (f"INSERT INTO `clients_accounts` (`client_id`, `account_id`)\
                             VALUES ('{id_one}', '{account_id}');")
-        
-        execute_query(db_connection, connection_query)
-        
-        connection_query = (f"INSERT INTO `clients_accounts` (`client_id`, `account_id`)\
-                            VALUES ('{id_two}', '{account_id}');")
-        
+
         execute_query(db_connection, connection_query)
 
+        connection_query = (f"INSERT INTO `clients_accounts` (`client_id`, `account_id`)\
+                            VALUES ('{id_two}', '{account_id}');")
+
+        execute_query(db_connection, connection_query)
 
     return render_template('add_account.html', how_many_form=how_many_form)
 
 
 @add.route('/update_client', methods=['GET', 'POST'])
 def update_client():
-    
+
     db_connection = connect_to_database()
 
     form = UpdateClient()
@@ -204,9 +206,9 @@ def update_client():
         print("house_number: " + str(house_number))
         print("zip_code: " + str(zip_code))
         print("email: " + str(email))
-        
-        get_address = f"SELECT address_id FROM clients WHERE client_id={id};"        
-        
+
+        get_address = f"SELECT address_id FROM clients WHERE client_id={id};"
+
         address_id = execute_query(db_connection, get_address).fetchall()
         address_id = address_id[0][0]
         print(address_id)
@@ -219,7 +221,7 @@ def update_client():
                           `email` = '{email}'\
                   WHERE\
                           `client_id` = {id};")
-        
+
         address_query = (f"UPDATE `addresses`\
                   SET\
                           `city` = '{city}',\
@@ -228,7 +230,7 @@ def update_client():
                           `zip_code` = {zip_code}\
                   WHERE\
                           `address_id` = {address_id};")
-        
+
         execute_query(db_connection, client_query)
         execute_query(db_connection, address_query)
 

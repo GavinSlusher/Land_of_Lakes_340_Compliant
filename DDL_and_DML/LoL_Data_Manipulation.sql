@@ -86,6 +86,9 @@ VALUES ('{client_id}', '{advisor_id}');
 -- View Tables
 -- TO DO: Join Tables/Queries for more useful tables
 
+
+SELECT * FROM `clients` WHERE last_name LIKE '{search_term}%'
+
 -- Clients
 
 SELECT
