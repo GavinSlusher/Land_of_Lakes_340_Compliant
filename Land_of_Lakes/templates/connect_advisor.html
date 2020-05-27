@@ -8,9 +8,17 @@
 
   <form method="POST">
     {{ form.hidden_tag() }}
-    {{ form.client_id.label }} {{form.client_id}} <br>
-    {{ form.advisor_id.label }} {{form.advisor_id}} <br>
-    {{ form.submit() }}
+    <div class="form-row">
+      <div class="col-auto">
+        {{ form.client_id.label }} {{form.client_id}} 
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col">
+        {{ form.advisor_id.label }} {{form.advisor_id}} 
+      </div>
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
   </form>
 
 </div>

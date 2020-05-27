@@ -10,10 +10,12 @@
     client is a joint owner of an account, the account will remain.</p>
   </div>
 
-  <form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.id.label }} {{form.id}}
-    {{ form.submit() }} 
-  </form>
+  <div class='form-group'>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      {{ form.id.label }} {{form.id}}
+      {{ form.submit(class="btn btn-primary") }} 
+    </form>
+  </div>
 </div>
 {% endblock %}

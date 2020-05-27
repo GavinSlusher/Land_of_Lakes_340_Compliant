@@ -50,11 +50,17 @@
 
         <p>Clieck on the table wanted below and hit submit to view.</p> 
 
-      <form method="POST">
-        {{ form.hidden_tag() }}
-        {{ form.tables.label }} {{form.tables}} <br>
-        {{ form.submit() }} 
-      </form>
+        <div class="form-group">
+          <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-row">
+              <div class="col-auto">
+                {{ form.tables.label }} {{form.tables(class="btn btn-outline-info dropdown-toggle")}} 
+                {{ form.submit(class="btn btn-primary") }} 
+              </div>
+            </div>
+          </form>
+        </div>
     </div>
     {% block content %}
     
