@@ -11,17 +11,38 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href=" {{ url_for('main.index') }}">Home</a>
-        <a class="nav-item nav-link" href=" {{ url_for('add.add_client') }}">Add Client</a>
-        <a class="nav-item nav-link" href="{{ url_for('add.add_advisor') }} ">Add Financial Advisor</a>
-        <a class="nav-item nav-link" href="{{ url_for('add.add_account') }}">Add Account</a>
-        <a class="nav-item nav-link" href="{{ url_for('add.update_client') }}">Update Client</a>
-        <a class="nav-item nav-link" href="{{ url_for('add.delete_client') }}">Delete Client</a>
-        <a class="nav-item nav-link" href="{{ url_for('main.connect_advisor') }}">Connect Advisor</a>
-        <a class="nav-item nav-link" href="{{ url_for('main.search_database') }} ">Search Database</a>
-        <a class="nav-item nav-link" href="{{ url_for('main.view_tables') }}">View Tables</a>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <a class="navbar-brand nav-link" href=" {{ url_for('main.index') }}">Land of Lakes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbar">
+        <ul class="navbar-nav ">
+          <li class="nav-item">
+            <a class="nav-link" href=" {{ url_for('add.add_client') }}">Add Client</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add.add_advisor') }} ">Add Financial Advisor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add.add_account') }}">Add Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add.update_client') }}">Update Client</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('add.delete_client') }}">Delete Client</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.connect_advisor') }}">Connect Advisor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.search_database') }} ">Search Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.view_tables') }}">View Tables</a>
+          </li>
+        </ul>
       </div>
     </nav>
     <div class="jumbotron">
