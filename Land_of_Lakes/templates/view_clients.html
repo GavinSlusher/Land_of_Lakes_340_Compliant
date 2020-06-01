@@ -8,7 +8,6 @@
         <th>Client Name</th>
         <th>Email</th>
         <th>Update</th>
-        <th>Delete</th>
     </thead>
     <tbody>
 
@@ -20,7 +19,6 @@
         <td> {{ r[2] }}</td>
         <td> {{ r[3] }}</td>
         <td> <input type='button' name='Update' value='Update' class="btn btn-secondary" onclick="window.location = '{{ url_for('add.update_client')}}'"> </td>
-        <td> <input type='button' name='Delete' value='Delete' class="btn btn-secondary" onclick="window.location = '{{ url_for('add.delete_client')}}'"> </td>
       </tr>
 
       {% endfor %}

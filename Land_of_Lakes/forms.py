@@ -66,7 +66,7 @@ class TwoAccountForm(FlaskForm):
 
 
 class DeleteForm(FlaskForm):
-    id = IntegerField("Client's ID: ", validators=[DataRequired()])
+    id = IntegerField("Account ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 

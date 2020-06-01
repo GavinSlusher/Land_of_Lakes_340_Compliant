@@ -237,15 +237,22 @@ def update_client():
     return render_template('update_client.html', form=form)
 
 
-@add.route('/delete_client', methods=['GET', 'POST'])
-def delete_client():
+@add.route('/delete_account', methods=['GET', 'POST'])
+def delete_account():
+
+    db_connection = connect_to_database()
 
     form = DeleteForm()
     if form.validate_on_submit():
-        id = form.id.data
+        account_id = form.id.data
 
         print('Info from Forms')
         print('---------------')
-        print("client_id: " + str(id))
+        print("account_id: " + str(id))
 
-    return render_template('delete_client.html', form=form)
+        delete_query = (f"DELETE FROM `accounts`\
+                          WHERE `account_id` = {account_id};")
+
+        execute_query(db_connection, delete_query)
+
+    return render_template('delete_account.html', form=form)
