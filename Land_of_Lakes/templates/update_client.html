@@ -15,7 +15,7 @@
 
   {% if make_null == 'False' %}
     <div class='form-group'>
-      <form method="POST" action="">
+     e <form method="POST" action="">
         {{ update_client_address_form.hidden_tag() }}
         <div class="form-row">
           <div class="col-auto">
@@ -84,4 +84,9 @@
   {% endif %}
   </div>
 </div>
+
+{% if msg %}
+<p>{% print(msg) %}</p>
+{% endif %}
+
 {% endblock %}

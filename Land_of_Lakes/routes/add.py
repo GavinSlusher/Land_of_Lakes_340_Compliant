@@ -194,6 +194,7 @@ def update_client():
     make_null_form = AskIfNull()
     update_client_only_form = UpdateClient()
     update_client_address_form = UpdateClientAddress()
+    msg = ""
 
     if make_null_form.validate_on_submit():
         make_null = make_null_form.make_null.data
@@ -243,7 +244,16 @@ def update_client():
         
         # if, address doesn't exist, create a new address
         
-        # else if Address is exists, update address
+        # else if Address does exists, update address
+
+        # address_query = (f"UPDATE `addresses`\
+        #           SET\
+        #                   `city` = '{city}',\
+        #                   `state` = '{state}',\
+        #                   `house_number` = {house_number},\
+        #                   `zip_code` = {zip_code}\
+        #           WHERE\
+        #                   `address_id` = {address_id};")
         
         # execute_query(db_connection, client_query)
         # execute_query(db_connection, address_query)
@@ -261,8 +271,9 @@ def update_client():
 
         print(address_id)
 
-        if not address_id:
+        if address_id[0][0] is None:
             print('Address is already NULL')
+            msg = "That Client's address is already NULL"
         
         else:
             print('Need to nullify')
@@ -274,32 +285,9 @@ def update_client():
             
             execute_query(db_connection, delete_query)
 
-            address_id = 'NULL'
-
-            client_query = (f"UPDATE `clients`\
-                    SET\
-                            `ssn` = {ssn},\
-                            `first_name` = '{first_name}',\
-                            `last_name` = '{last_name}',\
-                            `email` = '{email}',\
-                            `address_id` = {address_id}\
-                    WHERE\
-                            `client_id` = {id};")
-
-            execute_query(db_connection, client_query)
 
 
-        # address_query = (f"UPDATE `addresses`\
-        #           SET\
-        #                   `city` = '{city}',\
-        #                   `state` = '{state}',\
-        #                   `house_number` = {house_number},\
-        #                   `zip_code` = {zip_code}\
-        #           WHERE\
-        #                   `address_id` = {address_id};")
-
-
-    return render_template('update_client.html', make_null_form=make_null_form)
+    return render_template('update_client.html', make_null_form=make_null_form, msg=msg)
 
 
 @add.route('/delete_account', methods=['GET', 'POST'])

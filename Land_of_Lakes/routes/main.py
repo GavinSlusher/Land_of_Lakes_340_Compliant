@@ -22,12 +22,6 @@ def connect_advisor():
                                     (`client_id`, `advisor_id`)\
                                 VALUES ('{client_id}', '{advisor_id}');")
 
-                                
-        # address_query = (f"INSERT INTO `addresses` (`city`, `state`,\
-        #                         `house_number`, `zip_code`)\
-        #                    VALUES ('{city}', '{state}', '{house_number}',\
-        #                         '{zip_code}');")
-
         execute_query(db_connection, clients_advisors_query)
 
 
@@ -86,13 +80,6 @@ def view_tables():
             return render_template('view_accounts.html', form=form, rows=rows)
 
         elif form.tables.data == 'clients_advisors':
-            # query = ("SELECT\
-            #             `client_advisor_id` as 'Client Advisor ID',\
-            #             `client_id` as 'Client ID',\
-            #             `advisor_id` as 'Advisor ID'\
-            #          FROM\
-            #             `clients_advisors`;")
-
             query = ("SELECT\
                         `client_advisor_id` as 'Client Advisor ID',\
                         clients.client_id as 'Client ID',\
