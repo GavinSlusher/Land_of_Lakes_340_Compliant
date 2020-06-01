@@ -18,7 +18,7 @@ CREATE TABLE `clients` (
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `address_id` int NOT NULL,
+  `address_id` int,
   PRIMARY KEY (`client_id`),
   FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`)
 );
@@ -110,7 +110,7 @@ INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`)
 VALUES ('Chicago', 'IL', '789', '22222');
 
 INSERT INTO `clients`(`ssn`, `first_name`, `last_name`, `email`, `address_id`)
-VALUES (4567, 'Johnny', 'Tsunami', 'tubular@gmail.com', '3' );
+VALUES (9876, 'Johnny', 'Tsunami', 'tubular@gmail.com', '3' );
 
 -- NOTE: in the future, can populate address_id with a SQL Query (order by most recent?)
 

@@ -49,7 +49,8 @@ def view_tables():
                         `client_id` as 'Client ID',\
                         `ssn` as 'Social Security Number',\
                     CONCAT(`first_name`, ' ', `last_name`) as 'Client Name',\
-                        `email` as 'Email'\
+                        `email` as 'Email',\
+                        `address_id` as 'Address ID'\
                      FROM\
                         `clients`;")
 
@@ -69,26 +70,52 @@ def view_tables():
             return render_template('view_accounts.html', form=form, rows=rows)
 
         elif form.tables.data == 'clients_advisors':
+            # query = ("SELECT\
+            #             `client_advisor_id` as 'Client Advisor ID',\
+            #             `client_id` as 'Client ID',\
+            #             `advisor_id` as 'Advisor ID'\
+            #          FROM\
+            #             `clients_advisors`;")
+
             query = ("SELECT\
                         `client_advisor_id` as 'Client Advisor ID',\
-                        `client_id` as 'Client ID',\
-                        `advisor_id` as 'Advisor ID'\
-                     FROM\
-                        `clients_advisors`;")
+                        clients.client_id as 'Client ID',\
+                        clients.first_name as 'C First',\
+                        clients.last_name as 'C Last',\
+                        financial_advisors.advisor_id as 'Advisor ID',\
+                        financial_advisors.first_name as 'A First',\
+                        financial_advisors.last_name as 'A Last'\
+                    FROM\
+                        `clients_advisors`\
+                        INNER JOIN clients ON clients.client_id=clients_advisors.client_id\
+                        INNER JOIN financial_advisors ON financial_advisors.advisor_id=clients_advisors.advisor_id;")
 
             rows = execute_query(db_connection, query).fetchall()
+
+            
 
             return render_template('view_clients_advisors.html',
                                    form=form,
                                    rows=rows)
 
         elif form.tables.data == 'clients_accounts':
+            # query = ("SELECT\
+            #                 `client_account_id` as 'Client Account ID',\
+            #                 `client_id` as 'Client ID',\
+            #                 `account_id` as 'Account ID'\
+            #          FROM\
+            #                 `clients_accounts`;")
             query = ("SELECT\
                             `client_account_id` as 'Client Account ID',\
-                            `client_id` as 'Client ID',\
-                            `account_id` as 'Account ID'\
-                     FROM\
-                            `clients_accounts`;")
+                            clients.first_name as 'First Name',\
+                            clients.last_name as 'Last Name',\
+                            clients.client_id as 'Client ID',\
+                            accounts.account_id as 'Account ID'\
+                            FROM\
+                            `clients_accounts`\
+                            INNER JOIN clients ON clients.client_id=clients_accounts.client_id\
+                            INNER JOIN accounts ON accounts.account_id=clients_accounts.account_id;")
+
 
             rows = execute_query(db_connection, query).fetchall()
 

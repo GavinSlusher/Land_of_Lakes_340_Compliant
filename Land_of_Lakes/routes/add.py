@@ -1,9 +1,17 @@
 from flask import Blueprint, render_template
 from ..db_connector.db_connector import connect_to_database, execute_query
 from ..forms import (ClientForm, AdvisorForm, OneAccountForm, TwoAccountForm,
-                     UpdateClient, DeleteForm, HowManyAccountsForm)
+                     UpdateClient, DeleteForm, HowManyAccountsForm, AskIfNull, UpdateClientAddress)
 
 add = Blueprint('add', __name__)
+
+def optional_data(form_request):
+    if form_request:
+        data = form_request
+    else:
+        data = "NULL"
+    
+    return data
 
 
 @add.route('/add_client', methods=['GET', 'POST'])
@@ -183,58 +191,86 @@ def update_client():
 
     db_connection = connect_to_database()
 
-    form = UpdateClient()
-    if form.validate_on_submit():
-        id = form.id.data
-        ssn = form.ssn.data
-        first_name = form.first_name.data
-        last_name = form.last_name.data
-        city = form.city.data
-        state = form.state.data
-        house_number = form.house_number.data
-        zip_code = form.zip_code.data
-        email = form.email.data
+    make_null_form = AskIfNull()
+    update_client_only_form = UpdateClient()
+    update_client_address_form = UpdateClientAddress()
 
-        print('Info from Forms')
-        print('---------------')
-        print("id: " + str(id))
-        print("ssn: " + str(ssn))
-        print("first_name: " + str(first_name))
-        print("last_name: " + str(last_name))
-        print("city: " + str(city))
-        print("state: " + str(state))
-        print("house_number: " + str(house_number))
-        print("zip_code: " + str(zip_code))
-        print("email: " + str(email))
+    if make_null_form.validate_on_submit():
+        make_null = make_null_form.make_null.data
+        print(make_null)
 
-        get_address = f"SELECT address_id FROM clients WHERE client_id={id};"
+        return render_template('update_client.html',
+                               make_null_form=make_null_form,
+                               make_null=make_null, 
+                               update_client_address_form=update_client_address_form,
+                               update_client_only_form=update_client_only_form)
 
-        address_id = execute_query(db_connection, get_address).fetchall()
-        address_id = address_id[0][0]
-        print(address_id)
+    
+    # else:
+    #     id = form.id.data
+    #     ssn = form.ssn.data
+    #     first_name = form.first_name.data
+    #     last_name = form.last_name.data
+    #     email = form.email.data
+    #     city = form.city.data
+    #     state = form.state.data
+    #     house_number = form.house_number.data
+    #     zip_code = form.zip_code.data
+        # make_null = check_value_from_form
 
-        client_query = (f"UPDATE `clients`\
-                  SET\
-                          `ssn` = {ssn},\
-                          `first_name` = '{first_name}',\
-                          `last_name` = '{last_name}',\
-                          `email` = '{email}'\
-                  WHERE\
-                          `client_id` = {id};")
+        # if make_null is true and address ID is None: (IE setting a null address to null)
+            # error message that their address is already null
+            # return redirect
 
-        address_query = (f"UPDATE `addresses`\
-                  SET\
-                          `city` = '{city}',\
-                          `state` = '{state}',\
-                          `house_number` = {house_number},\
-                          `zip_code` = {zip_code}\
-                  WHERE\
-                          `address_id` = {address_id};")
+        # if make_null and addressID: (null address id in clients and it is not currently null)
+            # set the address to null
+            
+        # update address properties ()
 
-        execute_query(db_connection, client_query)
-        execute_query(db_connection, address_query)
+        
 
-    return render_template('update_client.html', form=form)
+        # print('Info from Forms')
+        # print('---------------')
+        # print("id: " + str(id))
+        # print("ssn: " + str(ssn))
+        # print("first_name: " + str(first_name))
+        # print("last_name: " + str(last_name))
+        # print("city: " + str(city))
+        # print("state: " + str(state))
+        # print("house_number: " + str(house_number))
+        # print("zip_code: " + str(zip_code))
+        # print("email: " + str(email))
+
+        # get_address = f"SELECT address_id FROM clients WHERE client_id={id};"
+            
+        # address_id = execute_query(db_connection, get_address).fetchall()
+        
+        # print(address_id)
+        # address_id = address_id[0][0]
+        # print(address_id)
+
+        # client_query = (f"UPDATE `clients`\
+        #           SET\
+        #                   `ssn` = {ssn},\
+        #                   `first_name` = '{first_name}',\
+        #                   `last_name` = '{last_name}',\
+        #                   `email` = '{email}'\
+        #           WHERE\
+        #                   `client_id` = {id};")
+
+        # address_query = (f"UPDATE `addresses`\
+        #           SET\
+        #                   `city` = '{city}',\
+        #                   `state` = '{state}',\
+        #                   `house_number` = {house_number},\
+        #                   `zip_code` = {zip_code}\
+        #           WHERE\
+        #                   `address_id` = {address_id};")
+
+        # execute_query(db_connection, client_query)
+        # execute_query(db_connection, address_query)
+
+    return render_template('update_client.html', make_null_form=make_null_form)
 
 
 @add.route('/delete_account', methods=['GET', 'POST'])
@@ -254,5 +290,6 @@ def delete_account():
                           WHERE `account_id` = {account_id};")
 
         execute_query(db_connection, delete_query)
+
 
     return render_template('delete_account.html', form=form)
