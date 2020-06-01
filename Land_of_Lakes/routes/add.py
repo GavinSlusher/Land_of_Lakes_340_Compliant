@@ -369,6 +369,7 @@ def delete_account():
         
 
         account_id = execute_query(db_connection, account_id_query).fetchall()
+        account_id = account_id[0][0]
         print(account_id)
         if not account_id:
             print("No account ID found")  
