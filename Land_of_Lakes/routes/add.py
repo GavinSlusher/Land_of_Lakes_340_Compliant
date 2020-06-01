@@ -200,11 +200,18 @@ def update_client():
         make_null = make_null_form.make_null.data
         print(make_null)
 
-        return render_template('update_client.html',
+        if make_null == 'True':
+
+            return render_template('update_client.html',
                                make_null_form=make_null_form,
                                make_null=make_null, 
-                               update_client_address_form=update_client_address_form,
                                update_client_only_form=update_client_only_form)
+
+        elif make_null == 'False':
+            return render_template('update_client.html',
+                               make_null_form=make_null_form,
+                               make_null=make_null, 
+                               update_client_address_form=update_client_address_form)
     
     if update_client_address_form.validate_on_submit():
         id = update_client_address_form.id.data
@@ -229,7 +236,59 @@ def update_client():
         print("zip_code: " + str(zip_code))
         print("email: " + str(email))
         
-        client_query = (f"UPDATE `clients`\
+
+        get_address = f"SELECT address_id FROM clients WHERE client_id={id};"
+        address_id = execute_query(db_connection, get_address).fetchall()
+        print(address_id)
+
+        address_id = address_id[0][0]
+        
+        # if, address doesn't exist, create a new address
+        if address_id is None:
+
+            # This will insert the form data into the addresses table
+            address_query = (f"INSERT INTO `addresses` (`city`, `state`,\
+                                    `house_number`, `zip_code`)\
+                            VALUES ('{city}', '{state}', '{house_number}',\
+                                    '{zip_code}');")
+
+            execute_query(db_connection, address_query)
+
+            # This will grab the most recent address_id added to the addresses
+            get_address = "SELECT address_id FROM addresses ORDER BY address_id\
+                        DESC LIMIT 1;"
+
+            address_id = execute_query(db_connection, get_address).fetchall()
+            address_id = address_id[0][0]
+            print(address_id)
+            
+            client_query = (f"UPDATE `clients`\
+                  SET\
+                          `ssn` = {ssn},\
+                          `first_name` = '{first_name}',\
+                          `last_name` = '{last_name}',\
+                          `email` = '{email}',\
+                          `address_id` = '{address_id}'\
+                  WHERE\
+                          `client_id` = {id};")
+        
+            execute_query(db_connection, client_query)
+
+         # else Address does exists, update address
+        else:        
+
+            address_query = (f"UPDATE `addresses`\
+                    SET\
+                            `city` = '{city}',\
+                            `state` = '{state}',\
+                            `house_number` = {house_number},\
+                            `zip_code` = {zip_code}\
+                    WHERE\
+                            `address_id` = {address_id};")
+            
+            execute_query(db_connection, address_query)
+            
+            client_query = (f"UPDATE `clients`\
                   SET\
                           `ssn` = {ssn},\
                           `first_name` = '{first_name}',\
@@ -237,28 +296,10 @@ def update_client():
                           `email` = '{email}'\
                   WHERE\
                           `client_id` = {id};")
-
-        get_address = f"SELECT address_id FROM clients WHERE client_id={id};"
-        address_id = execute_query(db_connection, get_address).fetchall()
-        print(address_id)
         
-        # if, address doesn't exist, create a new address
-        
-        # else if Address does exists, update address
-
-        # address_query = (f"UPDATE `addresses`\
-        #           SET\
-        #                   `city` = '{city}',\
-        #                   `state` = '{state}',\
-        #                   `house_number` = {house_number},\
-        #                   `zip_code` = {zip_code}\
-        #           WHERE\
-        #                   `address_id` = {address_id};")
-        
-        # execute_query(db_connection, client_query)
-        # execute_query(db_connection, address_query)
+            execute_query(db_connection, client_query)
     
-    if update_client_only_form.validate_on_submit():
+    elif update_client_only_form.validate_on_submit():
         id = update_client_address_form.id.data
         ssn = update_client_address_form.ssn.data
         first_name = update_client_address_form.first_name.data
@@ -274,6 +315,17 @@ def update_client():
         if address_id[0][0] is None:
             print('Address is already NULL')
             msg = "That Client's address is already NULL"
+            
+            client_query = (f"UPDATE `clients`\
+                  SET\
+                          `ssn` = {ssn},\
+                          `first_name` = '{first_name}',\
+                          `last_name` = '{last_name}',\
+                          `email` = '{email}'\
+                  WHERE\
+                          `client_id` = {id};")
+        
+            execute_query(db_connection, client_query)
         
         else:
             print('Need to nullify')
@@ -284,8 +336,17 @@ def update_client():
                             WHERE `address_id` = {address_id};")
             
             execute_query(db_connection, delete_query)
-
-
+            
+            client_query = (f"UPDATE `clients`\
+                  SET\
+                          `ssn` = {ssn},\
+                          `first_name` = '{first_name}',\
+                          `last_name` = '{last_name}',\
+                          `email` = '{email}'\
+                  WHERE\
+                          `client_id` = {id};")
+        
+            execute_query(db_connection, client_query)
 
     return render_template('update_client.html', make_null_form=make_null_form, msg=msg)
 

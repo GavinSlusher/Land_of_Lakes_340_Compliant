@@ -15,7 +15,7 @@
 
   {% if make_null == 'False' %}
     <div class='form-group'>
-     e <form method="POST" action="">
+      <form method="POST" action="">
         {{ update_client_address_form.hidden_tag() }}
         <div class="form-row">
           <div class="col-auto">
@@ -55,31 +55,32 @@
         <br></br>
         {{ update_client_address_form.submit(class="btn btn-primary") }} 
       </form>
+
   {%  elif make_null == 'True' %}
     <div class='form-group'>
       <form method="POST" action="">
-        {{ update_client_address_form.hidden_tag() }}
+        {{ update_client_only_form.hidden_tag() }}
         <div class="form-row">
           <div class="col-auto">
-            {{ update_client_address_form.id.label }} {{update_client_address_form.id(class="form-control", placeholder="ID")}}
+            {{ update_client_only_form.id.label }} {{update_client_only_form.id(class="form-control", placeholder="ID")}}
           </div>
           <div class="col-auto">
-            {{ update_client_address_form.ssn.label }} {{update_client_address_form.ssn(class="form-control", placeholder="Social Security Number")}} 
+            {{ update_client_only_form.ssn.label }} {{update_client_only_form.ssn(class="form-control", placeholder="Social Security Number")}} 
           </div>
           <div class="col-auto">
-            {{ update_client_address_form.email.label }} {{update_client_address_form.email(class="form-control", placeholder="Email")}}
+            {{ update_client_only_form.email.label }} {{update_client_only_form.email(class="form-control", placeholder="Email")}}
           </div>
         </div>
         <br></br>
         <div class="form-row">
           <div class="col-auto">
-            {{ update_client_address_form.first_name.label }} {{update_client_address_form.first_name(class="form-control", placeholder="First Name")}} 
+            {{ update_client_only_form.first_name.label }} {{update_client_only_form.first_name(class="form-control", placeholder="First Name")}} 
           </div>
           <div class="col-auto">
-            {{ update_client_address_form.last_name.label }} {{update_client_address_form.last_name(class="form-control", placeholder="Last Name")}} 
+            {{ update_client_only_form.last_name.label }} {{update_client_only_form.last_name(class="form-control", placeholder="Last Name")}} 
           </div>
         </div>
-        {{ update_client_address_form.submit(class="btn btn-primary") }} 
+        {{ update_client_only_form.submit(class="btn btn-primary") }} 
       </form>
   {% endif %}
   </div>

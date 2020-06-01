@@ -93,9 +93,7 @@ def view_tables():
                         INNER JOIN clients ON clients.client_id=clients_advisors.client_id\
                         INNER JOIN financial_advisors ON financial_advisors.advisor_id=clients_advisors.advisor_id;")
 
-            rows = execute_query(db_connection, query).fetchall()
-
-            
+            rows = execute_query(db_connection, query).fetchall()            
 
             return render_template('view_clients_advisors.html',
                                    form=form,
