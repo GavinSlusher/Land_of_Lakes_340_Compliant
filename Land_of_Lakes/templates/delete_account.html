@@ -14,5 +14,11 @@
       {{ form.submit(class="btn btn-primary") }} 
     </form>
   </div>
+  {%if account_exists == True %}
+     <h1>Account Deleted! </h1>
+  {%elif account_exists == False %}
+    <h1>Account Doesn't exist! Try again. </h1>  
+  {%elif account_exists == None %}
+  {% endif %}  
 </div>
 {% endblock %}

@@ -13,8 +13,24 @@ def index():
 
 @main.route('/connect_advisor', methods=['GET', 'POST'])
 def connect_advisor():
-
+    db_connection = connect_to_database()
     form = ConnectAdvisorForm()
+    if form.validate_on_submit():
+        client_id = form.client_id.data
+        advisor_id = form.advisor_id.data
+        clients_advisors_query = (f"INSERT INTO `clients_advisors`\
+                                    (`client_id`, `advisor_id`)\
+                                VALUES ('{client_id}', '{advisor_id}');")
+
+                                
+        # address_query = (f"INSERT INTO `addresses` (`city`, `state`,\
+        #                         `house_number`, `zip_code`)\
+        #                    VALUES ('{city}', '{state}', '{house_number}',\
+        #                         '{zip_code}');")
+
+        execute_query(db_connection, clients_advisors_query)
+
+
     return render_template('connect_advisor.html', form=form)
 
 

@@ -20,7 +20,7 @@ CREATE TABLE `clients` (
   `email` varchar(255) NOT NULL,
   `address_id` int,
   PRIMARY KEY (`client_id`),
-  FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`)
+  FOREIGN KEY (`address_id`) REFERENCES `addresses`(`address_id`) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `accounts`;
