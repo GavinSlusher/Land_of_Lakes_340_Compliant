@@ -1,6 +1,6 @@
 -- This file will represent the queries needed for each page on the frontend of
 -- our website. Any variable that we expect the backend code to pass to these 
--- queries will be denoted by surrounding brackets: {} 
+-- queries will be denoted by surrounding curly braces: {} 
 
 
 -- Add Client Page
@@ -53,6 +53,9 @@ SET
 WHERE
         `client_id` = {client_id};
 
+-- Because the addresses relationship to clients are nullable, we have three scenarios:
+-- 1) That we need to update the current address
+
 UPDATE `addresses`
 SET
         `city` = {city},
@@ -62,16 +65,13 @@ SET
 WHERE
         `address_id` = {address_id};
 
+-- 2) That we need to create a new address
+INSERT INTO `addresses` (`city`, `state`, `house_number`, `zip_code`)
+VALUES ('{city}', '{state}', '{house_number}', '{zip_code}');
 
--- Delete Client Page
--- This form will delete the client connected to the passed ID.
--- NOTE: TO DO
--- If the client has a Financial Advisor, the relationship will be de-linked.
--- If the client is the sole account owner of an account,
--- the account will be deleted. And if the client is a joint owner of an account,
--- the account will remain.
-
-DELETE FROM `clients` WHERE `client_id` = {client_id};
+-- 3) That we need to nullify (delete) an address
+DELETE FROM `addresses`
+WHERE `address_id` = {address_id}
 
 -- Connect Advisor Page
 -- This form will connect an advisor with a client using their respective IDs
@@ -79,15 +79,19 @@ DELETE FROM `clients` WHERE `client_id` = {client_id};
 INSERT INTO `clients_advisors` (`client_id`, `advisor_id`)
 VALUES ('{client_id}', '{advisor_id}');
 
+-- Delete Account Page 
+
+-- This will look up the accounts associated with the id.
+SELECT * FROM `accounts` WHERE `account_id` = {account_id};
+-- and delete the account from the user with the specified account id
+DELETE FROM `accounts` WHERE `account_id` = {account_id};
 
 -- Search The Database
 -- TO DO: We will search a client by id and populate requested data
 
--- View Tables
--- TO DO: Join Tables/Queries for more useful tables
-
-
 SELECT * FROM `clients` WHERE last_name LIKE '{search_term}%'
+
+-- View Tables
 
 -- Clients
 
@@ -109,12 +113,14 @@ FROM
 
 -- Clients Accounts
 
-SELECT
-        `client_account_id` as 'Client Account ID',
-        `client_id` as 'Client ID',
-        `account_id` as 'Account ID'
-FROM
-        `clients_accounts`;
+SELECT `client_account_id` as 'Client Account ID',
+       clients.first_name as 'First Name',
+       clients.last_name as 'Last Name',
+       clients.client_id as 'Client ID',
+       accounts.account_id as 'Account ID'
+FROM `clients_accounts`
+INNER JOIN clients ON clients.client_id=clients_accounts.client_id
+INNER JOIN accounts ON accounts.account_id=clients_accounts.account_id;        
 
 -- Addresses
 
@@ -138,9 +144,13 @@ FROM
 
 -- Clients Advisors
 
-SELECT
-        `client_advisor_id` as 'Client Advisor ID',
-        `client_id` as 'Client ID',
-        `advisor_id` as 'Advisor ID'
-FROM
-        `clients_advisors`;
+SELECT `client_advisor_id` as 'Client Advisor ID',
+        clients.client_id as 'Client ID',
+        clients.first_name as 'C First',
+        clients.last_name as 'C Last',
+        financial_advisors.advisor_id as 'Advisor ID',
+        financial_advisors.first_name as 'A First',
+        financial_advisors.last_name as 'A Last'
+FROM `clients_advisors`
+INNER JOIN clients ON clients.client_id=clients_advisors.client_id
+INNER JOIN financial_advisors ON financial_advisors.advisor_id=clients_advisors.advisor_id;
