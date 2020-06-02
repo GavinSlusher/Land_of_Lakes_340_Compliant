@@ -7,17 +7,11 @@ from ..forms import (ClientForm, AdvisorForm, OneAccountForm, TwoAccountForm,
 add = Blueprint('add', __name__)
 
 
-def optional_data(form_request):
-    if form_request:
-        data = form_request
-    else:
-        data = "NULL"
-
-    return data
-
-
 @add.route('/add_client', methods=['GET', 'POST'])
 def add_client():
+    """
+    CREATE Route - Adds a Client to the database
+    """
 
     db_connection = connect_to_database()
 
@@ -74,6 +68,9 @@ def add_client():
 
 @add.route('/add_advisor', methods=['GET', 'POST'])
 def add_advisor():
+    """
+    CREATE Route - Adds an advisor to the database
+    """
 
     db_connection = connect_to_database()
 
@@ -103,6 +100,9 @@ def add_advisor():
 
 @add.route('/add_account', methods=['GET', 'POST'])
 def add_account():
+    """
+    CREATE Route - Adds an account to the database
+    """
 
     db_connection = connect_to_database()
 
@@ -190,7 +190,9 @@ def add_account():
 
 @add.route('/update_client', methods=['GET', 'POST'])
 def update_client():
-
+    """
+    UPDATE Route - Updates a client to the database
+    """
     db_connection = connect_to_database()
 
     make_null_form = AskIfNull()
@@ -343,7 +345,9 @@ def update_client():
 
 @add.route('/delete_account', methods=['GET', 'POST'])
 def delete_account():
-
+    """
+    DELETE Route - Deletes an account from the database
+    """
     db_connection = connect_to_database()
 
     form = DeleteForm()

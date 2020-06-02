@@ -1,6 +1,8 @@
 import MySQLdb as mariadb
 from .db_credentials import host, user, passwd, db
 
+# Sources Cited: Used from OSU Lecure materials Week 8
+
 
 def connect_to_database(host=host, user=user, passwd=passwd, db=db):
     '''

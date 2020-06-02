@@ -6,6 +6,9 @@ from wtforms.validators import DataRequired
 
 
 class ClientForm(FlaskForm):
+    """
+    CREATE Functionality - A form for adding clients and Addresses
+    """
     ssn = IntegerField("Client's SSN: ", validators=[DataRequired()])
     first_name = StringField("First Name: ", validators=[DataRequired()])
     last_name = StringField('Last Name:', validators=[DataRequired()])
@@ -18,6 +21,9 @@ class ClientForm(FlaskForm):
 
 
 class AdvisorForm(FlaskForm):
+    """
+    CREATE Functionality - A form for adding Advisors
+    """
     first_name = StringField("First Name: ")
     last_name = StringField("Last Name: ")
     expertise = SelectField("Area of Expertise: ",
@@ -29,12 +35,19 @@ class AdvisorForm(FlaskForm):
 
 
 class ConnectAdvisorForm(FlaskForm):
+    """
+    UPDATE Functionality - A form for connecting Advisors to Clients
+    """
     client_id = IntegerField("Client ID: ", validators=[DataRequired()])
     advisor_id = IntegerField("Advisor ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class AskIfNull(FlaskForm):
+    """
+    UPDATE Functionality - A form to ask the user if they want to nullify a
+    client's address
+    """
     make_null = SelectField("Do you want to nullify the Client's Address? ",
                             choices=[('True', 'Yes'),
                                      ('False', 'No')])
@@ -42,6 +55,9 @@ class AskIfNull(FlaskForm):
 
 
 class UpdateClientAddress(FlaskForm):
+    """
+    UPDATE Functionality - A form to update the client and their address
+    """
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
     ssn = IntegerField("Client's SSN: ", validators=[DataRequired()])
     first_name = StringField("First Name: ", validators=[DataRequired()])
@@ -55,6 +71,9 @@ class UpdateClientAddress(FlaskForm):
 
 
 class UpdateClient(FlaskForm):
+    """
+    UPDATE Functionality - A form to update the client only
+    """
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
     ssn = IntegerField("Client's SSN: ", validators=[DataRequired()])
     first_name = StringField("First Name: ", validators=[DataRequired()])
@@ -64,6 +83,10 @@ class UpdateClient(FlaskForm):
 
 
 class HowManyAccountsForm(FlaskForm):
+    """
+    CREATE Functionality - A Form to ask whether the account to be created has
+    one account owner or two
+    """
     number_wanted = SelectField("Number of Account Owners: ",
                                 choices=[('1', 'One'),
                                          ('2', 'Two')])
@@ -71,27 +94,45 @@ class HowManyAccountsForm(FlaskForm):
 
 
 class OneAccountForm(FlaskForm):
+    """
+    CREATE Functionality - A form for adding Accounts if there's only one
+    account owner
+    """
     id = IntegerField("Client's ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class TwoAccountForm(FlaskForm):
+    """
+    CREATE Functionality - A form for adding Accounts if there's two
+    account owners
+    """
     id_one = IntegerField("First Client ID: ", validators=[DataRequired()])
     id_two = IntegerField("Second Client ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class DeleteForm(FlaskForm):
+    """
+    DELETE Functionality - A form to delete an account
+    """
     id = IntegerField("Account ID: ", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class SearchForm(FlaskForm):
+    """
+    READ Functionality - A form to search for Clients based on Last Name
+    """
     searched_parameter = StringField('Last Name:', validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 class TablesForm(FlaskForm):
+    """
+    READ Functionality - A form to view any table that the user chooses from a
+    dropdown
+    """
     tables = SelectField("Select Table: ",
                          choices=[('clients', 'Clients'),
                                   ('accounts', 'Accounts'),

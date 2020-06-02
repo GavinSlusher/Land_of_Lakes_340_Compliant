@@ -5,12 +5,14 @@ from ..db_connector.db_connector import connect_to_database, execute_query
 main = Blueprint('main', __name__)
 
 
+# Homepage route
 @main.route('/')
 def index():
 
     return render_template('index.html')
 
 
+# This route will connect an existing financial advisor to an existing client
 @main.route('/connect_advisor', methods=['GET', 'POST'])
 def connect_advisor():
     db_connection = connect_to_database()
@@ -27,6 +29,8 @@ def connect_advisor():
     return render_template('connect_advisor.html', form=form)
 
 
+# This route will search the database for a client with the specified form data.
+# If the string is found in the database, it will be rendered into the html page.
 @main.route('/search_database', methods=['GET', 'POST'])
 def search_database():
     db_connection = connect_to_database()
@@ -45,7 +49,9 @@ def search_database():
 
     return render_template('search_database.html', form=form)
 
-
+# This route will display data from each one of our tables. The user is provided a drop-
+# down menu in which to choose the table data they wish to view. The resulting data from the
+# cooresponding table is then rendered to the user. 
 @main.route('/view_tables', methods=['GET', 'POST'])
 def view_tables():
     db_connection = connect_to_database()
@@ -53,7 +59,7 @@ def view_tables():
     form = TablesForm()
 
     if form.validate_on_submit():
-
+        # Display clients table data
         if form.tables.data == 'clients':
             query = ("SELECT\
                         `client_id` as 'Client ID',\
@@ -67,7 +73,7 @@ def view_tables():
             rows = execute_query(db_connection, query).fetchall()
 
             return render_template('view_clients.html', form=form, rows=rows)
-
+        # Display accounts table data
         elif form.tables.data == 'accounts':
             query = ("SELECT\
                         `account_id` as 'Account Number',\
@@ -78,7 +84,7 @@ def view_tables():
             rows = execute_query(db_connection, query).fetchall()
 
             return render_template('view_accounts.html', form=form, rows=rows)
-
+        # Display clients_advisors table data
         elif form.tables.data == 'clients_advisors':
             query = ("SELECT\
                         `client_advisor_id` as 'Client Advisor ID',\
@@ -101,14 +107,9 @@ def view_tables():
             return render_template('view_clients_advisors.html',
                                    form=form,
                                    rows=rows)
-
-        elif form.tables.data == 'clients_accounts':
-            # query = ("SELECT\
-            #                 `client_account_id` as 'Client Account ID',\
-            #                 `client_id` as 'Client ID',\
-            #                 `account_id` as 'Account ID'\
-            #          FROM\
-            #                 `clients_accounts`;")
+        
+        # Display clients_accounts table data
+        elif form.tables.data == 'clients_accounts':            
             query = ("SELECT\
                             `client_account_id` as 'Client Account ID',\
                             clients.first_name as 'First Name',\
@@ -129,6 +130,7 @@ def view_tables():
                                    form=form,
                                    rows=rows)
 
+        # Display addresses table data
         elif form.tables.data == 'addresses':
             query = ("SELECT\
                             `address_id` as 'Address ID',\
@@ -143,8 +145,9 @@ def view_tables():
 
             return render_template('view_addresses.html', form=form, rows=rows)
 
+        # Display financial_advisors table data
         elif form.tables.data == 'financial_advisors':
-            #print("VEIW FINANCIAL ADVISORS")
+            
             query = ("SELECT\
                         `advisor_id` as 'Advisor ID',\
                         `area_of_expertise` as 'Area of Expertise',\
@@ -156,6 +159,5 @@ def view_tables():
             rows = execute_query(db_connection, query).fetchall()
 
             return render_template('view_financial_advisors.html', form=form, rows=rows)
-            #print("They want financial advisors")
 
     return render_template('view_tables.html', form=form)
