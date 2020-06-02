@@ -2,6 +2,8 @@
 {% block content %}
 <div class="jumbotron">
   <h1>Search The Database</h1>
+  <p>Use this form to search any client in the database by their last name.
+  If you don't know the full name, partial strings are also acceptable.</p>
   <form method="POST" action="{{ url_for('main.search_database') }}">
     <div class="form-group">
       {{ form.hidden_tag() }}

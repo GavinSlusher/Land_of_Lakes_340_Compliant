@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SelectField, SubmitField
 
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import DataRequired, Optional
+from wtforms.validators import DataRequired
 
 
 class ClientForm(FlaskForm):
@@ -39,7 +39,7 @@ class AskIfNull(FlaskForm):
                             choices=[('True', 'Yes'),
                                      ('False', 'No')])
     submit = SubmitField("Submit")
-    
+
 
 class UpdateClientAddress(FlaskForm):
     id = IntegerField("Client's ID: ", validators=[DataRequired()])

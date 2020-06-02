@@ -4,7 +4,12 @@
   <h1>Delete Account</h1>
 
   <div>
-    <p>Enter an account number to delete an account. This will not delete any associated Clients.</p>
+        <p>
+                Enter an account number to delete an account. 
+                This will not delete any associated Clients.
+                You can look up its ID by 
+                <a href="{{ url_for('main.view_tables') }}">viewing their table.</a>
+        </p>
   </div>
 
   <div class='form-group'>

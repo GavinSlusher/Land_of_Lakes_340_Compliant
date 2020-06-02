@@ -4,7 +4,8 @@
   <h1>Add Client</h1>
 
   <p>This Form will add a Client and their Address to the database. A client
-  <em>must</em> have an address, and so the form is consolodated here.</p>
+  <em>must</em> have an address to start out with, but if you want to nullify
+  the many to one relationship, you can do so when updating the client </p>
 
   <div class='form-group'>
     <form method="POST" action="{{ url_for('add.add_client') }}">

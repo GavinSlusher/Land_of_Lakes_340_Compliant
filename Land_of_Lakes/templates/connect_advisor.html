@@ -3,7 +3,10 @@
 <div class="jumbotron">
   <h1>Connect Advisor</h1>
 
-  <p>This form will connect an advisor with a client using their respective IDs
+  <p>This form will connect an advisor with a client using their respective IDs.
+     Don't know the client ID? Look it up <a href="{{ url_for('main.search_database') }}">here!</a>
+     You can also view all the Advisors and their IDs by 
+     <a href="{{ url_for('main.view_tables') }}">viewing their table.</a>
   </p>
 
   <form method="POST">

@@ -24,7 +24,6 @@ def connect_advisor():
 
         execute_query(db_connection, clients_advisors_query)
 
-
     return render_template('connect_advisor.html', form=form)
 
 
@@ -37,7 +36,8 @@ def search_database():
         search_term = form.searched_parameter.data
         print("searching for: " + search_term)
 
-        query = (f"SELECT * FROM `clients` WHERE last_name LIKE '{search_term}%';")
+        query = (f"SELECT * FROM `clients`\
+                 WHERE last_name LIKE '{search_term}%';")
 
         rows = execute_query(db_connection, query, None).fetchall()
 
@@ -90,10 +90,13 @@ def view_tables():
                         financial_advisors.last_name as 'A Last'\
                     FROM\
                         `clients_advisors`\
-                        INNER JOIN clients ON clients.client_id=clients_advisors.client_id\
-                        INNER JOIN financial_advisors ON financial_advisors.advisor_id=clients_advisors.advisor_id;")
+                        INNER JOIN clients\
+                        ON clients.client_id=clients_advisors.client_id\
+                        INNER JOIN financial_advisors\
+                        ON financial_advisors.advisor_id\
+                           =clients_advisors.advisor_id;")
 
-            rows = execute_query(db_connection, query).fetchall()            
+            rows = execute_query(db_connection, query).fetchall()
 
             return render_template('view_clients_advisors.html',
                                    form=form,
@@ -114,9 +117,11 @@ def view_tables():
                             accounts.account_id as 'Account ID'\
                             FROM\
                             `clients_accounts`\
-                            INNER JOIN clients ON clients.client_id=clients_accounts.client_id\
-                            INNER JOIN accounts ON accounts.account_id=clients_accounts.account_id;")
-
+                            INNER JOIN clients\
+                            ON clients.client_id=clients_accounts.client_id\
+                            INNER JOIN accounts\
+                            ON accounts.account_id\
+                            =clients_accounts.account_id;")
 
             rows = execute_query(db_connection, query).fetchall()
 
