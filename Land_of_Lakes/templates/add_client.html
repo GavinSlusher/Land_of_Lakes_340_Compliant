@@ -46,5 +46,10 @@
       {{ form.submit(class="btn btn-primary") }} 
     </form>
   </div>
+  {% if submitted %}
+    <h3>Client submitted!</h3>
+  {%endif%}
+        
+
 </div>
 {% endblock %}

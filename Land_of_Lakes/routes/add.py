@@ -16,6 +16,7 @@ def add_client():
     db_connection = connect_to_database()
 
     form = ClientForm()
+    submitted = False
 
     if form.validate_on_submit():
 
@@ -63,7 +64,9 @@ def add_client():
 
         execute_query(db_connection, client_query)
 
-    return render_template('add_client.html', form=form)
+        submitted = True
+
+    return render_template('add_client.html', form=form, submitted=submitted)
 
 
 @add.route('/add_advisor', methods=['GET', 'POST'])
@@ -75,6 +78,8 @@ def add_advisor():
     db_connection = connect_to_database()
 
     form = AdvisorForm()
+    submitted = False
+
     if form.validate_on_submit():
         first_name = form.first_name.data
         last_name = form.last_name.data
@@ -95,7 +100,9 @@ def add_advisor():
 
         execute_query(db_connection, advisor_query)
 
-    return render_template('add_advisor.html', form=form)
+        submitted = True
+
+    return render_template('add_advisor.html', form=form, submitted=submitted)
 
 
 @add.route('/add_account', methods=['GET', 'POST'])
@@ -209,13 +216,15 @@ def update_client():
             return render_template('update_client.html',
                                    make_null_form=make_null_form,
                                    make_null=make_null,
-                                   update_client_only_form=update_client_only_form)
+                                   update_client_only_form # noqa
+                                   =update_client_only_form)
 
         elif make_null == 'False':
             return render_template('update_client.html',
                                    make_null_form=make_null_form,
                                    make_null=make_null,
-                                   update_client_address_form=update_client_address_form)
+                                   update_client_address_form # noqa
+                                   =update_client_address_form)
 
     if update_client_address_form.validate_on_submit():
         id = update_client_address_form.id.data

@@ -51,7 +51,7 @@ def search_database():
 
 # This route will display data from each one of our tables. The user is provided a drop-
 # down menu in which to choose the table data they wish to view. The resulting data from the
-# cooresponding table is then rendered to the user. 
+# cooresponding table is then rendered to the user.
 @main.route('/view_tables', methods=['GET', 'POST'])
 def view_tables():
     db_connection = connect_to_database()
@@ -107,9 +107,9 @@ def view_tables():
             return render_template('view_clients_advisors.html',
                                    form=form,
                                    rows=rows)
-        
+
         # Display clients_accounts table data
-        elif form.tables.data == 'clients_accounts':            
+        elif form.tables.data == 'clients_accounts':
             query = ("SELECT\
                             `client_account_id` as 'Client Account ID',\
                             clients.first_name as 'First Name',\
@@ -147,7 +147,7 @@ def view_tables():
 
         # Display financial_advisors table data
         elif form.tables.data == 'financial_advisors':
-            
+
             query = ("SELECT\
                         `advisor_id` as 'Advisor ID',\
                         `area_of_expertise` as 'Area of Expertise',\
