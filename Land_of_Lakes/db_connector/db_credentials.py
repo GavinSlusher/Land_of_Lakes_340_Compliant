@@ -3,7 +3,7 @@
 
 # Source: OSU Lecture Materials Week 8
 
-host = 'classmysql.engr.oregonstate.edu'
-user = 'cs340_slusherg'
-passwd = '9690'
-db = 'cs340_slusherg'
+host = 'ao9moanwus0rjiex.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
+user = 'm8sncw31blchg3av'
+passwd = 'x68e74oqns71636j'
+db = 'ue5wy916qj5dz241'
